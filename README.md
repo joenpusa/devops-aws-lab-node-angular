@@ -27,7 +27,14 @@ Simulación y validación local de servicios AWS mediante **Floci** antes del de
   - [x] Bucket S3 inicial (`materials-images-dev`).
   - [x] Presupuesto simulado en AWS Budgets (`$5.00/mes`).
   - [x] Repositorio Git inicializado y vinculado a GitHub.
-- [ ] **Fase 02 — Redes y Seguridad (VPC, Subnets, Security Groups)**
+- [x] **Fase 02 — Redes y Seguridad (VPC, Subnets, Security Groups):**
+  - [x] VPC dedicada (`10.0.0.0/16`).
+  - [x] Internet Gateway (IGW) asociado.
+  - [x] Subred pública (`10.0.1.0/24`) con tabla de ruteo hacia Internet.
+  - [x] Subred privada (`10.0.2.0/24`) aislada.
+  - [x] Security Group para Backend (`EC2-SG`: 22, 80, 443).
+  - [x] Security Group para Base de Datos (`RDS-SG`: 3306 restringido a `EC2-SG`).
+  - [x] Script automatizado en `scripts/01-setup-network.sh`.
 - [ ] **Fase 03 — IAM (Roles y Políticas de Mínimo Privilegio)**
 - [ ] **Fase 04 — Base de Datos (RDS MySQL)**
 - [ ] **Fase 05 — Backend (Node.js + Express + Docker)**
@@ -74,3 +81,9 @@ aws budgets create-budget \
   --account-id 000000000000 \
   --budget file://infra/budget.json
 ```
+
+### 5. Aprovisionar infraestructura de red y seguridad (VPC, Subnets, SGs)
+```bash
+./scripts/01-setup-network.sh
+```
+
