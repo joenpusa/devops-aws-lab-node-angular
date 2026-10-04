@@ -35,7 +35,11 @@ Simulación y validación local de servicios AWS mediante **Floci** antes del de
   - [x] Security Group para Backend (`EC2-SG`: 22, 80, 443).
   - [x] Security Group para Base de Datos (`RDS-SG`: 3306 restringido a `EC2-SG`).
   - [x] Script automatizado en `scripts/01-setup-network.sh`.
-- [ ] **Fase 03 — IAM (Roles y Políticas de Mínimo Privilegio)**
+- [x] **Fase 03 — IAM (Roles y Políticas de Mínimo Privilegio):**
+  - [x] Trust Policy para autorizar al servicio `ec2.amazonaws.com`.
+  - [x] Política granular de Mínimo Privilegio para Backend Node.js (S3, DynamoDB, SQS).
+  - [x] Rol IAM (`EC2BackendRole`) e Instance Profile (`EC2BackendProfile`).
+  - [x] Script automatizado e idempotente en `scripts/02-setup-iam.sh`.
 - [ ] **Fase 04 — Base de Datos (RDS MySQL)**
 - [ ] **Fase 05 — Backend (Node.js + Express + Docker)**
 - [ ] **Fase 06 — Frontend (Angular + Nginx + Docker)**
@@ -86,4 +90,10 @@ aws budgets create-budget \
 ```bash
 ./scripts/01-setup-network.sh
 ```
+
+### 6. Aprovisionar Identidad y Mínimo Privilegio (IAM)
+```bash
+./scripts/02-setup-iam.sh
+```
+
 
