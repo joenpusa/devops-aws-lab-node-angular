@@ -40,7 +40,12 @@ Simulación y validación local de servicios AWS mediante **Floci** antes del de
   - [x] Política granular de Mínimo Privilegio para Backend Node.js (S3, DynamoDB, SQS).
   - [x] Rol IAM (`EC2BackendRole`) e Instance Profile (`EC2BackendProfile`).
   - [x] Script automatizado e idempotente en `scripts/02-setup-iam.sh`.
-- [ ] **Fase 04 — Base de Datos (RDS MySQL)**
+- [x] **Fase 04 — Base de Datos (RDS MySQL):**
+  - [x] DB Subnet Group en subredes del laboratorio (`devopslab-db-subnet-group`).
+  - [x] Instancia administrada RDS MySQL (`devopslab-db`) aislada sin acceso público.
+  - [x] Schema DDL relacional con UUIDs nativos e índices optimizados (`infra/db/schema.sql`).
+  - [x] Principio de Mínimo Privilegio con usuario de aplicación (`app_user`).
+  - [x] Scripts automatizados en `scripts/03-setup-rds.sh` y `scripts/04-init-db-schema.sh`.
 - [ ] **Fase 05 — Backend (Node.js + Express + Docker)**
 - [ ] **Fase 06 — Frontend (Angular + Nginx + Docker)**
 - [ ] **Fase 07 — Serverless & Mensajería (SQS + Lambda)**
@@ -95,5 +100,15 @@ aws budgets create-budget \
 ```bash
 ./scripts/02-setup-iam.sh
 ```
+
+### 7. Aprovisionar Base de Datos (RDS MySQL) e Inicializar Schema
+```bash
+# Crear DB Subnet Group e instancia RDS MySQL
+./scripts/03-setup-rds.sh
+
+# Crear usuario de aplicación (app_user), schema DDL y seed data
+./scripts/04-init-db-schema.sh
+```
+
 
 
