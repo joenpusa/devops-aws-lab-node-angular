@@ -46,7 +46,12 @@ Simulación y validación local de servicios AWS mediante **Floci** antes del de
   - [x] Schema DDL relacional con UUIDs nativos e índices optimizados (`infra/db/schema.sql`).
   - [x] Principio de Mínimo Privilegio con usuario de aplicación (`app_user`).
   - [x] Scripts automatizados en `scripts/03-setup-rds.sh` y `scripts/04-init-db-schema.sh`.
-- [ ] **Fase 05 — Backend (Node.js + Express + Docker)**
+- [x] **Fase 05 — Backend (Node.js + Express + Docker):**
+  - [x] API REST con Express y arquitectura modular (`src/config`, `controllers`, `routes`).
+  - [x] Pool de conexiones `mysql2/promise` consumiendo credenciales dinámicas de `app_user`.
+  - [x] Endpoints CRUD para `/api/materials` y `/api/users` con UUIDs y bcrypt.
+  - [x] Endpoint de observabilidad `/health` con verificación activa de base de datos.
+  - [x] Dockerfile optimizado (`node:18-alpine`), usuario no-root y `.dockerignore`.
 - [ ] **Fase 06 — Frontend (Angular + Nginx + Docker)**
 - [ ] **Fase 07 — Serverless & Mensajería (SQS + Lambda)**
 - [ ] **Fase 08 — API Gateway & Observabilidad (CloudWatch)**
@@ -109,6 +114,30 @@ aws budgets create-budget \
 # Crear usuario de aplicación (app_user), schema DDL y seed data
 ./scripts/04-init-db-schema.sh
 ```
+
+### 8. Configurar y Ejecutar Backend (Node.js + Docker)
+```bash
+# Configurar variables de entorno locales de la aplicación
+source infra/.env.db
+cat << ENV_EOF > backend/.env
+PORT=3000
+NODE_ENV=development
+DB_HOST=$DB_HOST
+DB_PORT=$DB_PORT
+DB_NAME=$DB_NAME
+DB_USER=$DB_APP_USER
+DB_PASSWORD=$DB_APP_PASSWORD
+ENV_EOF
+
+# Instalar dependencias e iniciar localmente
+cd backend
+npm install
+npm start
+
+# O construir la imagen Docker para producción
+docker build -t devopslab-backend:latest ./backend
+```
+
 
 
 
