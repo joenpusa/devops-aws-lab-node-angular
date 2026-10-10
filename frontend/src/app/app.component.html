@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+
+<div class="subnav-container">
+  <div class="subnav-content">
+    <nav class="nav-links">
+      <a routerLink="/materials" routerLinkActive="active-link" class="nav-item">
+        📦 Materiales (RDS + S3)
+      </a>
+      <a routerLink="/users" routerLinkActive="active-link" class="nav-item">
+        👥 Usuarios & Seguridad
+      </a>
+    </nav>
+  </div>
+</div>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer-container">
+  <div class="footer-content">
+    <div class="arch-badge">
+      Arquitectura: 
+      <span>Angular (Nginx)</span> ➔ 
+      <span>Node.js (EC2)</span> ➔ 
+      <span>MySQL (RDS)</span> + 
+      <span>S3 (Imágenes)</span>
+    </div>
+    <div class="copyright">
+      DevOps AWS Lab © 2026 — Validación Local con Floci First
+    </div>
+  </div>
+</footer>

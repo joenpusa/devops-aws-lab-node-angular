@@ -52,7 +52,11 @@ Simulación y validación local de servicios AWS mediante **Floci** antes del de
   - [x] Endpoints CRUD para `/api/materials` y `/api/users` con UUIDs y bcrypt.
   - [x] Endpoint de observabilidad `/health` con verificación activa de base de datos.
   - [x] Dockerfile optimizado (`node:18-alpine`), usuario no-root y `.dockerignore`.
-- [ ] **Fase 06 — Frontend (Angular + Nginx + Docker)**
+- [x] **Fase 06 — Frontend (Angular + Nginx + Docker):**
+  - [x] Aplicación SPA moderna con Angular 17 Standalone (`Navbar`, `MaterialList`, `Users`).
+  - [x] Consumo reactivo del Backend vía `HttpClient` (CRUD de materiales, login y health probe).
+  - [x] Servidor web Nginx configurado para HTML5 routing (`try_files`), compresión gzip y seguridad.
+  - [x] Dockerfile multi-etapa (*multi-stage build*: Node builder ➔ Nginx Alpine runner).
 - [ ] **Fase 07 — Serverless & Mensajería (SQS + Lambda)**
 - [ ] **Fase 08 — API Gateway & Observabilidad (CloudWatch)**
 - [ ] **Fase 09 — CI/CD con GitHub Actions**
@@ -137,6 +141,18 @@ npm start
 # O construir la imagen Docker para producción
 docker build -t devopslab-backend:latest ./backend
 ```
+
+### 9. Configurar y Ejecutar Frontend (Angular + Nginx + Docker)
+```bash
+# Iniciar frontend en modo desarrollo local (puerto 4200)
+cd frontend
+npm start
+
+# O construir la imagen Docker de producción servida por Nginx (puerto 80)
+docker build -t devopslab-frontend:latest ./frontend
+docker run -d --name devopslab-frontend -p 8080:80 devopslab-frontend:latest
+```
+
 
 
 
